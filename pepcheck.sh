@@ -1,5 +1,13 @@
 #!/bin/sh
 
+cd "$(git rev-parse --show-toplevel)"
+CWD=$(pwd)
+PYTHON=$(which python)
+if [ $PYTHON != "$CWD/env/bin/python" ]; then
+    echo "Wrong Working Directory"
+    exit 1
+fi
+
 VENV_DIR="./env"
 PEP8='pep8'
 
@@ -23,8 +31,7 @@ if [ $RESULT -eq 0 ]; then
 fi
 rm $TMP_FILE
 
-#cd .
-#python manage.py test
-#TEST_RESULT=$?
+python contacts/manage.py test
+TEST_RESULT=$?
 
 exit $(( $TEST_RESULT + $PEP8_RESULT ))
