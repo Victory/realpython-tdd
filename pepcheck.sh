@@ -31,7 +31,8 @@ if [ $RESULT -eq 0 ]; then
 fi
 rm $TMP_FILE
 
-python contacts/manage.py test ft
+cd contacts
+python manage.py test ft
 TEST_RESULT=$?
-
+cd -
 exit $(( $TEST_RESULT + $PEP8_RESULT ))
