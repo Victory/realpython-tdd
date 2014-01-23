@@ -1,6 +1,6 @@
 #!/bin/sh
 
-VENV_DIR="./tutorial"
+VENV_DIR="./env"
 PEP8='pep8'
 
 if [ $($PEP8 --version) != '0.6.1' ]; then
