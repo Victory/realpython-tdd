@@ -45,3 +45,17 @@ class AdminTest(LiveServerTestCase):
         table = self.browser.find_element_by_tag_name('table')
 
         self.assertIn('live@forever.com', table.text)
+
+    def test_create_contact_admin(self):
+        self.browser.get(self.live_server_url + '/admin/')
+        username_field = self.browser.find_element_by_name('username')
+        username_field.send_keys('admin')
+        password_field = self.browser.find_element_by_name('password')
+        password_field.send_keys('password')
+        password_field.send_keys(Keys.RETURN)
+
+        sleep(15)
+        # user verifies that user_contacts is present
+        body = self.browser.find_element_by_tag_name('body')
+
+        self.assertIn('User_Contacts', body.text)
