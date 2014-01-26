@@ -8,6 +8,7 @@ def validate_string(string):
         raise ValidationError(
             'Invalid: something other than letters or is empty')
 
+
 def validate_number(value):
     if re.search('^[0-9]+$', value) is None:
         raise ValidationError(
