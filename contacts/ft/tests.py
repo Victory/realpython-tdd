@@ -107,7 +107,9 @@ class AdminTest(LiveServerTestCase):
         self.browser.find_element_by_name('number').send_keys("12345000")
 
         # click save
-        self.browser.find_element_by_css_selector("input[value='Save']").click()
+        self.browser.find_element_by_css_selector(
+            "input[value='Save']").click()
+
         # see that the number has been added
         body = self.browser.find_elements_by_tag_name('body')
         self.assertIn('12345000', body[0].text)
