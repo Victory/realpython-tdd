@@ -1,6 +1,9 @@
 from django.shortcuts import (
     render,
     render_to_response)
+from user_contacts.models import (
+    Phone,
+    Person)
 
 
 def home(request):
