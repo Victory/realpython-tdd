@@ -3,10 +3,12 @@ from django.conf.urls import patterns, include, url
 from django.contrib import admin
 admin.autodiscover()
 
-urlpatterns = patterns('',
-    # Examples:
-    # url(r'^$', 'contacts.views.home', name='home'),
-    # url(r'^blog/', include('blog.urls')),
+from user_contacts import views as uc_views
 
+
+urlpatterns = patterns(
+    '',
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^$', uc_views.home),
+    url(r'^all/$', uc_views.all_contacts),
 )

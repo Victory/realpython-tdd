@@ -33,6 +33,7 @@ rm $TMP_FILE
 
 cd contacts
 python manage.py test ft
+python manage.py test user_contacts
 TEST_RESULT=$?
 cd -
 exit $(( $TEST_RESULT + $PEP8_RESULT ))
