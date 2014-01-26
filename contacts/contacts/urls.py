@@ -11,4 +11,5 @@ urlpatterns = patterns(
     url(r'^admin/', include(admin.site.urls)),
     url(r'^$', uc_views.home),
     url(r'^all/$', uc_views.all_contacts),
+    url(r'^add/$', uc_views.add_contact),
 )
