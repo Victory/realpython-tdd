@@ -2,6 +2,7 @@ from django.shortcuts import (
     render,
     render_to_response)
 from django.template import RequestContext
+from django.http import HttpResponseRedirect
 
 from user_contacts.models import (
     Phone,
@@ -24,4 +25,16 @@ def add_contact(request):
         request,
         'add.html',
         {'person_form': person_form},
+        context_instance=RequestContext(request))
+
+
+def create(request):
+    form = ContactForm(request.POST)
+    if form.is_valid():
+        form.save()
+        return HttpResponseRedirect('all/')
+    return render(
+        request,
+        'add.html',
+        {'person_form': form},
         context_instance=RequestContext(request))

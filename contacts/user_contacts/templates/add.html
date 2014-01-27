@@ -17,6 +17,27 @@
       <form action="/create" method ="POST" role="form">
         {% csrf_token %}
 
+
+        {% if person_form.non_field_errors %}
+          <ul>
+            {% for error in person_form.non_field_errors %}
+              <li>{{ error }}</li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+        {% for field in person_form %}
+          <div id="{{ field.auto_id }}_container">
+            {{ field.help_text }}
+            <div>
+              {{ field.label_tag }}
+              {{ field }}
+            </div>
+            <div id="{{ field.auto_id }}_errors">
+              {{ field.errors }}
+            </div>
+          </div>
+        {% endfor %}
+
         <input type ="submit" name ="Submit" class="btn btn-default" value ="Add">
       </form>
       <br>
