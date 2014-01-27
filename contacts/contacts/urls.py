@@ -12,4 +12,5 @@ urlpatterns = patterns(
     url(r'^$', uc_views.home),
     url(r'^all/$', uc_views.all_contacts),
     url(r'^add/$', uc_views.add_contact),
+    url(r'^create$', uc_views.create),
 )
