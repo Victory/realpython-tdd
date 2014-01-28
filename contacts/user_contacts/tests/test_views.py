@@ -8,6 +8,11 @@ from user_contacts.views import *
 
 
 class ViewTest(TestCase):
+
+    def tearDown(self):
+        self.phone.delete()
+        self.person.delete()
+
     def setUp(self):
         self.client_stub = Client()
         self.person = Person(
@@ -45,3 +50,18 @@ class ViewTest(TestCase):
             '/create',
             data=data)
         self.assertEquals(response.status_code, 302)
+
+    def test_create_fail_route(self):
+        data = {
+            'first_name': 'bad_@_bad',
+            'last_name': 'testLast',
+            'email': 'test@example.com',
+            'address': '123 Fake St',
+            'city': 'Some Town',
+            'state': 'MN',
+            'country': 'USA',
+            'number': '12345'}
+        response = self.client_stub.post(
+            '/create',
+            data=data)
+        self.assertEquals(response.status_code, 200)

@@ -6,17 +6,20 @@ from django.core.exceptions import ValidationError
 from user_contacts.models import (
     Person,
     Phone)
+from user_contacts.validators import (
+    validate_string,
+    validate_number)
 
 
 class ContactForm(forms.Form):
-    first_name = forms.CharField(max_length=30)
-    last_name = forms.CharField(max_length=30)
+    first_name = forms.CharField(max_length=30, validators=[validate_string])
+    last_name = forms.CharField(max_length=30, validators=[validate_string])
     email = forms.EmailField(required=True)
     address = forms.CharField(widget=forms.Textarea, required=False)
     city = forms.CharField(required=False)
     state = forms.CharField(required=False)
     country = forms.CharField(required=False)
-    number = forms.CharField(max_length=10)
+    number = forms.CharField(max_length=10, validators=[validate_number])
 
     def save(self):
         if self.is_valid():

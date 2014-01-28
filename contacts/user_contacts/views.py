@@ -30,6 +30,7 @@ def add_contact(request):
 
 def create(request):
     form = ContactForm(request.POST)
+
     if form.is_valid():
         form.save()
         return HttpResponseRedirect('all/')
