@@ -13,3 +13,12 @@ class TestContactForm(TestCase):
 
         form = ContactForm(data)
         form.save()
+
+    def test_if_invalid_contact_is_not_saved(self):
+        data = {
+            'first_name': 'tes&t',
+            'last_name': 'test',
+            'number': '83883333'}
+        form = ContactForm(data)
+        contact = form.save()
+        self.assertEquals(contact, None)
