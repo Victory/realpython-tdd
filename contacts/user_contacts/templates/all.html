@@ -26,14 +26,14 @@
         </tr>
         {% for contact in contacts %}
           <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td>{{contact.person.first_name}}</td>
+            <td>{{contact.person.last_name}}</td>
+            <td>{{contact.person.address}}</td>
+            <td>{{contact.person.city}}</td>
+            <td>{{contact.person.state}}</td>
+            <td>{{contact.person.country}}</td>
+            <td>{{contact.number}}</td>
+            <td>{{contact.person.email}}</td>
           </tr>
         {% endfor %}
       </table>
