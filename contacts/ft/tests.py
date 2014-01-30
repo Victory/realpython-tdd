@@ -42,6 +42,31 @@ class UserContactTest(LiveServerTestCase):
         self.assertIn('bill@example.com', body.text)
 
 
+    def test_create_contact_error(self):
+        # open web browse, navigates to home page
+        self.browser.get(self.live_server_url + "/")
+
+        # click on the Persons link
+        add_link = self.browser.find_elements_by_link_text('Add Contact')
+        add_link[0].click()
+
+        self.name_key('first_name', "Bob@")
+        self.name_key('last_name', "Smit@h")
+        self.name_key('email', "bill@example.com")
+        self.name_key('address', "123 Fake St")
+        self.name_key('city', "Our Town")
+        self.name_key('state', "NV")
+        self.name_key('country', "USA")
+        self.name_key('number', "12345")
+
+        # click save
+        self.browser.find_element_by_css_selector(
+            "input[value='Add']").click()
+
+        body = self.browser.find_element_by_tag_name('body')
+        self.assertIn('Invalid', body.text)
+
+
 class AdminTest(LiveServerTestCase):
 
     # load fixtures
