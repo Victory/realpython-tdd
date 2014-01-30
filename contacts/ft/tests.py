@@ -5,17 +5,18 @@ from selenium.webdriver.common.keys import Keys
 
 from django.test import LiveServerTestCase
 
+class EasyLiveServerTestCase(LiveServerTestCase):
 
-class UserContactTest(LiveServerTestCase):
+    def name_key(self, name, keys):
+        self.browser.find_element_by_name(name).send_keys(keys)
+
+class UserContactTest(EasyLiveServerTestCase):
     def setUp(self):
         self.browser = webdriver.Firefox()
         self.browser.implicitly_wait(3)
 
     def tearDown(self):
         self.browser.quit()
-
-    def name_key(self, name, keys):
-        self.browser.find_element_by_name(name).send_keys(keys)
 
     def test_create_contact(self):
         # user opens web browser, navigates to home page
@@ -66,7 +67,7 @@ class UserContactTest(LiveServerTestCase):
         self.assertIn('Invalid', body.text)
 
 
-class AdminTest(LiveServerTestCase):
+class AdminTest(EasyLiveServerTestCase):
 
     # load fixtures
     fixtures = ['ft/fixtures/admin.json']
@@ -77,6 +78,7 @@ class AdminTest(LiveServerTestCase):
         self.browser.set_page_load_timeout(5)
 
     def tearDown(self):
+        return
         self.browser.quit()
 
     def test_admin_site(self):
@@ -178,3 +180,35 @@ class AdminTest(LiveServerTestCase):
         self.browser.find_element_by_link_text('Log out').click()
         body = self.browser.find_elements_by_tag_name('body')
         self.assertIn('quality time', body[0].text)
+
+    def test_create_contact_admin_raise_error(self):
+        # open browser
+        self.browser.get(self.live_server_url + "/admin/")
+        self.name_key('username', 'admin')
+        self.name_key('password', 'password')
+        self.name_key('password', Keys.RETURN)
+
+        # click  on the Persons link
+        self.browser.find_elements_by_link_text(
+            'Persons')[0].click()
+
+        # click to add person
+        self.browser.find_element_by_link_text(
+            'Add person').click()
+
+        # put in a bad person
+        self.name_key('first_name', "B@ll")
+        self.name_key('last_name', "Smith")
+        self.name_key('email', "bill@example.com")
+        self.name_key('address', "123 Fake St")
+        self.name_key('city', "Our Town")
+        self.name_key('state', "NV")
+        self.name_key('country', "USA")
+
+        # try to save the user
+        self.browser.find_element_by_css_selector(
+            "input[value='Save']").click()
+        body = self.browser.find_element_by_tag_name('body')
+        self.assertIn(
+            'Invalid: something other than letters or is empty',
+            body.text)
