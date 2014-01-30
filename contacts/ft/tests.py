@@ -41,7 +41,6 @@ class UserContactTest(LiveServerTestCase):
         body = self.browser.find_element_by_tag_name('body')
         self.assertIn('bill@example.com', body.text)
 
-
     def test_create_contact_error(self):
         # open web browse, navigates to home page
         self.browser.get(self.live_server_url + "/")
