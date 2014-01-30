@@ -6,6 +6,42 @@ from selenium.webdriver.common.keys import Keys
 from django.test import LiveServerTestCase
 
 
+class UserContactTest(LiveServerTestCase):
+    def setUp(self):
+        self.browser = webdriver.Firefox()
+        self.browser.implicitly_wait(3)
+
+    def tearDown(self):
+        self.browser.quit()
+
+    def name_key(self, name, keys):
+        self.browser.find_element_by_name(name).send_keys(keys)
+
+    def test_create_contact(self):
+        # user opens web browser, navigates to home page
+        self.browser.get(self.live_server_url + "/")
+
+        # user clicks on Persons link
+        add_link = self.browser.find_elements_by_link_text('Add Contact')
+        add_link[0].click()
+
+        self.name_key('first_name', "Bill")
+        self.name_key('last_name', "Smith")
+        self.name_key('email', "bill@example.com")
+        self.name_key('address', "123 Fake St")
+        self.name_key('city', "Our Town")
+        self.name_key('state', "NV")
+        self.name_key('country', "USA")
+        self.name_key('number', "12345")
+
+        # click save
+        self.browser.find_element_by_css_selector(
+            "input[value='Add']").click()
+
+        body = self.browser.find_element_by_tag_name('body')
+        self.assertIn('bill@example.com', body.text)
+
+
 class AdminTest(LiveServerTestCase):
 
     # load fixtures
@@ -13,7 +49,7 @@ class AdminTest(LiveServerTestCase):
 
     def setUp(self):
         self.browser = webdriver.Firefox()
-        self.browser.implicitly_wait(2)
+        self.browser.implicitly_wait(5)
         self.browser.set_page_load_timeout(5)
 
     def tearDown(self):
