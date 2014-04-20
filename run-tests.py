@@ -1,3 +1,7 @@
 #!/usr/bin/env python
 
-python manage.py test ft
+from subprocess import call
+
+if __name__ == '__main__':
+    errs = call(["python", "manage.py", "test", "ft"])
+    exit(errs)
