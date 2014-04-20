@@ -78,7 +78,6 @@ class AdminTest(EasyLiveServerTestCase):
         self.browser.set_page_load_timeout(5)
 
     def tearDown(self):
-        return
         self.browser.quit()
 
     def test_admin_site(self):
