@@ -1,9 +1,12 @@
+from os.path import dirname, realpath
+
 from time import sleep
 
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 
 from django.test import LiveServerTestCase
+
 
 class EasyLiveServerTestCase(LiveServerTestCase):
 
@@ -70,7 +73,7 @@ class UserContactTest(EasyLiveServerTestCase):
 class AdminTest(EasyLiveServerTestCase):
 
     # load fixtures
-    fixtures = ['ft/fixtures/admin.json']
+    fixtures = [dirname(__file__) + '/fixtures/admin.json']
 
     def setUp(self):
         self.browser = webdriver.Firefox()
