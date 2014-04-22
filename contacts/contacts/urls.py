@@ -13,4 +13,6 @@ urlpatterns = patterns(
     url(r'^all/$', uc_views.all_contacts),
     url(r'^add/$', uc_views.add_contact),
     url(r'^create$', uc_views.create),
+    url(r'^view/(?P<pk>\d+)$', uc_views.DetailContactView.as_view(),
+       name="contacts-view"),
 )

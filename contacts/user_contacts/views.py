@@ -9,10 +9,16 @@ from user_contacts.models import (
     Person)
 from user_contacts.new_contact_form import ContactForm
 
+from django.views.generic import DetailView
+
 
 def home(request):
     return render_to_response('home.html')
 
+
+class DetailContactView(DetailView):
+    model = Person
+    template_name = 'contact.html'
 
 def all_contacts(request):
     contacts = Phone.objects.all()
