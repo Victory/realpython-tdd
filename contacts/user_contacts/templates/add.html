@@ -45,5 +45,14 @@
     </div>
     <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
     <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+
+    <script type="text/javascript">
+      $("#id_first_name").keyup(function () {
+        var $ve = $("<span />");
+        $ve.attr('id', 'validate_avatar_id_first_name');
+        $ve.text("validating...");
+        $(this).append($ve);
+      });
+    </script>
   </body>
 </html>
