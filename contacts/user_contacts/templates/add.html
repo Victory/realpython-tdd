@@ -48,10 +48,23 @@
 
     <script type="text/javascript">
       $("#id_first_name").keyup(function () {
-        var $ve = $("<span />");
-        $ve.attr('id', 'validate_avatar_id_first_name');
-        $ve.text("validating...");
-        $(this).append($ve);
+        var $this = $(this);
+
+        if ($("#validate_avatar_id_first_name").length == 0) {
+          var $ve = $("<span />");
+          $ve.attr('id', 'validate_avatar_id_first_name');
+          $ve.text("validating...");
+          $(this).after($ve);
+        }
+
+        $.post(
+          '/validate',
+          {first_name: $this.val(),
+           csrfmiddlewaretoken: "{{ csrf_token }}"},
+           function (data) {
+              console.log(data);
+              $("#validate_avatar_id_first_name").text(data.result);
+           });
       });
     </script>
   </body>

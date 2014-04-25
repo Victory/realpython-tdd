@@ -2,14 +2,13 @@ from django.shortcuts import (
     render,
     render_to_response)
 from django.template import RequestContext
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
+from django.views.generic import DetailView
 
 from user_contacts.models import (
     Phone,
     Person)
 from user_contacts.new_contact_form import ContactForm
-
-from django.views.generic import DetailView
 
 
 def home(request):
@@ -19,6 +18,21 @@ def home(request):
 class DetailContactView(DetailView):
     model = Person
     template_name = 'contact.html'
+
+def validate(request):
+    form = ContactForm(request.POST)
+    field = form.fields['first_name']
+    data = field.widget.value_from_datadict(
+        form.data, form.files, form.add_prefix('first_name'))
+    cleaned_data = field.clean(data)
+    if data == cleaned_data:
+        result = "valid"
+    else:
+        result ="error"
+
+    data = '{"result":"' + result + '"}'
+    return HttpResponse(data, content_type="text/json")
+
 
 def all_contacts(request):
     contacts = Phone.objects.all()
