@@ -20,10 +20,16 @@ class DetailContactView(DetailView):
     template_name = 'contact.html'
 
 def validate(request):
-    form = ContactForm(request.POST)
-    field = form.fields['first_name']
+    post = request.POST
+    field_name = post['field_name']
+    field_value = post['field_value']
+    data_for_form = {}
+    data_for_form[field_name] = field_value
+
+    form = ContactForm(data_for_form)
+    field = form.fields[field_name]
     data = field.widget.value_from_datadict(
-        form.data, form.files, form.add_prefix('first_name'))
+        form.data, form.files, form.add_prefix(field_name))
     cleaned_data = field.clean(data)
     if data == cleaned_data:
         result = "valid"

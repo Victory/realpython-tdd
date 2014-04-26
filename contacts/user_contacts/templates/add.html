@@ -59,7 +59,8 @@
 
         $.post(
           '/validate',
-          {first_name: $this.val(),
+          {field_value: $this.val(),
+           field_name: 'first_name',
            csrfmiddlewaretoken: "{{ csrf_token }}"},
            function (data) {
               console.log(data);
