@@ -1,14 +1,20 @@
+{% load staticfiles %}
 <!DOCTYPE html>
 <html>
   <head>
     <title>Welcome.</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" media="screen">
+
     <style>
       .container {
       padding: 50px;
       }
     </style>
+
+    <script>
+      var csrfToken = "{{ csrf_token }}";
+    </script>
   </head>
   <body>
     <div class="container">
@@ -45,28 +51,6 @@
     </div>
     <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
     <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
-
-    <script type="text/javascript">
-      $("#id_first_name").keyup(function () {
-        var $this = $(this);
-
-        if ($("#validate_avatar_id_first_name").length == 0) {
-          var $ve = $("<span />");
-          $ve.attr('id', 'validate_avatar_id_first_name');
-          $ve.text("validating...");
-          $(this).after($ve);
-        }
-
-        $.post(
-          '/validate',
-          {field_value: $this.val(),
-           field_name: 'first_name',
-           csrfmiddlewaretoken: "{{ csrf_token }}"},
-           function (data) {
-              console.log(data);
-              $("#validate_avatar_id_first_name").text(data.result);
-           });
-      });
-    </script>
+    <script src="{% static "user_contacts/validate.js" %}"></script>
   </body>
 </html>
