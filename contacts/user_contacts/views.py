@@ -4,6 +4,7 @@ from django.shortcuts import (
 from django.template import RequestContext
 from django.http import HttpResponseRedirect, HttpResponse
 from django.views.generic import DetailView
+from django.core.exceptions import ValidationError
 
 from user_contacts.models import (
     Phone,
@@ -30,11 +31,12 @@ def validate(request):
     field = form.fields[field_name]
     data = field.widget.value_from_datadict(
         form.data, form.files, form.add_prefix(field_name))
-    cleaned_data = field.clean(data)
-    if data == cleaned_data:
+
+    try:
+        cleaned_data = field.clean(data)
         result = "valid"
-    else:
-        result ="error"
+    except ValidationError, e:
+        result = '\n'.join(e.messages)
 
     data = '{"result":"' + result + '"}'
     return HttpResponse(data, content_type="text/json")
