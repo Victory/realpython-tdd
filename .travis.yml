@@ -10,6 +10,6 @@ before_install:
 
 script: 
   - python run-tests.py
-  - coverage run --omit="contacts/ft/*,contacts/user_contacts/tests/*" --source='contacts' contacts/manage.py test user_contacts
+  - bash coverage.sh
 
 after_success: coveralls
