@@ -10,7 +10,7 @@ if __name__ == '__main__':
     display.start()
 
     errs = 0
-    tests = ['ft.testcrud', 'ft.livevalidation', "user_contacts"]
+    tests = ['ft.tests', 'ft.livevalidation', "user_contacts"]
     for test in tests:
         print "running '%s'" % test
         err = call(["python", "contacts/manage.py", "test", test])
