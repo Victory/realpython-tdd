@@ -5,6 +5,8 @@ from django.template import RequestContext
 from django.http import HttpResponseRedirect, HttpResponse
 from django.views.generic import DetailView
 from django.core.exceptions import ValidationError
+from django.views.decorators.http import require_http_methods
+
 
 from user_contacts.models import (
     Phone,
@@ -20,6 +22,7 @@ class DetailContactView(DetailView):
     model = Person
     template_name = 'contact.html'
 
+@require_http_methods(["POST"])
 def validate(request):
     post = request.POST
     field_name = post['field_name']
