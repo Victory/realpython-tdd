@@ -1,3 +1,4 @@
 selenium==2.39.0
 django==1.6.3
 PyVirtualDisplay==0.1.5
+coveralls

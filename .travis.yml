@@ -8,4 +8,8 @@ install: "pip install -r requirements.txt"
 before_install:
   - echo "not running xvfb start"
 
-script: python run-tests.py
+script: 
+  - python run-tests.py
+  - coverage run --source='contacts' contacts/manage.py test user_contacts
+
+after_success: coveralls
