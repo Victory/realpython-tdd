@@ -22,6 +22,7 @@ class DetailContactView(DetailView):
     model = Person
     template_name = 'contact.html'
 
+
 @require_http_methods(["POST"])
 def validate(request):
     post = request.POST

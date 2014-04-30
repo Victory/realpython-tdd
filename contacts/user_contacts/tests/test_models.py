@@ -3,6 +3,7 @@ from user_contacts.models import (
     Person,
     Phone)
 
+
 class PersonTest(TestCase):
     def test_unicode(self):
         person = Person()

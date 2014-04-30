@@ -13,6 +13,7 @@ class EasyLiveServerTestCase(LiveServerTestCase):
     def name_key(self, name, keys):
         self.browser.find_element_by_name(name).send_keys(keys)
 
+
 class UserContactTest(EasyLiveServerTestCase):
     def setUp(self):
         self.browser = webdriver.Firefox()

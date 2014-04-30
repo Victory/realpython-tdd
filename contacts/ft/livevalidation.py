@@ -59,7 +59,6 @@ class LiveValidationTestCase(LiveServerTestCase):
             self.by('id', 'validate_avatar_id_first_name').text,
             'valid')
 
-
     def test_invalid_first_name(self):
         self.browser.get(self.live_server_url + "/add")
         self.key('first_name', 'a+')

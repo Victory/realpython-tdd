@@ -25,14 +25,18 @@ class ViewTest(TestCase):
         self.phone.save()
 
     def test_view_inline_validation_valid_post(self):
-        data = {'field_name':'first_name', 'field_value':'victory'}
+        data = {
+            'field_name': 'first_name',
+            'field_value': 'victory'}
         response = self.client_stub.post('/validate', data)
         self.assertEquals(response.status_code, 200)
 
         self.assertEquals(response.content, '{"result":"valid"}')
 
     def test_view_inline_validation_invalid_post(self):
-        data = {'field_name':'first_name', 'field_value':'++invalid++'}
+        data = {
+            'field_name': 'first_name',
+            'field_value': '++invalid++'}
         response = self.client_stub.post('/validate', data)
         self.assertEquals(response.status_code, 200)
 
