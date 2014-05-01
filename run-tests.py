@@ -20,4 +20,6 @@ if __name__ == '__main__':
             print "Passed\n"
         errs += err
 
+    errs += call(["pep8.sh"])
+
     exit(errs)

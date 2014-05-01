@@ -3,7 +3,8 @@ from django.test import TestCase
 
 from user_contacts.validators import (
     validate_number,
-    validate_string)
+    validate_string,
+    validate_address)
 
 
 class ValidatorTest(TestCase):
@@ -16,3 +17,7 @@ class ValidatorTest(TestCase):
         with self.assertRaises(ValidationError):
             validate_number('1234ABC')
             validate_number('1234#')
+
+    def test_address_contains_number(self):
+        with self.assertRaises(ValidationError):
+            validate_address("Fake St")

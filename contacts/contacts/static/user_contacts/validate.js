@@ -1,6 +1,6 @@
 // form validation
 
-$("form input[type=text]").each(function () {
+$("form input[type=text], textarea").each(function () {
   $(this).keyup(function () {
     var $this = $(this);
     var fieldValue = $this.val();

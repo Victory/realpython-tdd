@@ -8,14 +8,18 @@ from user_contacts.models import (
     Phone)
 from user_contacts.validators import (
     validate_string,
-    validate_number)
+    validate_number,
+    validate_address)
 
 
 class ContactForm(forms.Form):
     first_name = forms.CharField(max_length=30, validators=[validate_string])
     last_name = forms.CharField(max_length=30, validators=[validate_string])
     email = forms.EmailField(required=True)
-    address = forms.CharField(widget=forms.Textarea, required=False)
+    address = forms.CharField(
+        widget=forms.Textarea,
+        required=True,
+        validators=[validate_address])
     city = forms.CharField(required=False)
     state = forms.CharField(required=False)
     country = forms.CharField(required=False)
