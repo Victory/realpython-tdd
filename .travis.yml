@@ -10,7 +10,7 @@ before_install:
   - sudo apt-get install pep8 -y
 
 script: 
-  - python run-tests.py
+  - python run-tests.py -v
   - bash coverage.sh
 
 after_success: coveralls

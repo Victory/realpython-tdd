@@ -1,13 +1,22 @@
 #!/usr/bin/env python
 
+import argparse
+
 from subprocess import call
 
 from pyvirtualdisplay import Display
 
 
 if __name__ == '__main__':
-    display = Display(visible=0, size=(1440, 900))
-    display.start()
+    parser = argparse.ArgumentParser(description='Run Tests for TDD')
+    parser.add_argument(
+        '-v', '--virtual',
+        help="Use Virtual Display", action="store_true")
+    args = parser.parse_args()
+
+    if args.virtual:
+        display = Display(visible=0, size=(1440, 900))
+        display.start()
 
     errs = 0
     tests = ['ft.tests', 'ft.livevalidation', "user_contacts"]
