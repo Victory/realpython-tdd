@@ -9,6 +9,12 @@ before_install:
   - echo "not running xvfb start"
   - sudo apt-get install pep8 -y
 
+addons:
+  sauce_connect:
+    username: "Victory"
+    access_key:
+        secure: "O7fPnbJh1RAkVjNug7bKNwTcFSKE+jYtIUiuMKasuplb0gCE+++woL35XRWuLL+TD+quVUNP3LEfHpxkxLNHZZuDZTgvCbIhkK+9VlH7XR8rzBwX5jhGQXztOjIfCZX75JVusjcDFqkeS3ThA1MPNPdmeN53nfhOOsw95Fl5GzU="
+
 script: 
   - python run-tests.py -v
   - bash coverage.sh
