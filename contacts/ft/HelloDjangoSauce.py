@@ -4,8 +4,10 @@ import unittest
 import sauceclient
 
 from selenium import webdriver
+from django.test import LiveServerTestCase
 
 from sauceclient import SauceClient
+
 
 USERNAME = "Victory"
 ACCESS_KEY = os.environ.get('SAUCE_ACCESS_KEY')
@@ -32,7 +34,7 @@ def on_platforms(platforms):
 
 
 @on_platforms(browsers)
-class SaucheTest(unittest.TestCase):
+class SaucheTest(LiveServerTestCase):
 
     def setUp(self):
         self.desired_capabilities['name'] = self.id()
