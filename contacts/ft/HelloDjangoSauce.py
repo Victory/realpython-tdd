@@ -41,8 +41,9 @@ class SaucheTest(LiveServerTestCase):
         self.desired_capabilities['name'] = self.id()
         self.desired_capabilities['tunnel-identifier'] = \
             os.environ['TRAVIS_JOB_NUMBER']
-        self.desired_capabilities = os.environ['TRAVIS_BUILD_NUMBER']
-        self.desired_capabilities = [os.environ['TRAVIS_PYTHON_VERSION'], 'CI']
+        self.desired_capabilities['build'] = os.environ['TRAVIS_BUILD_NUMBER']
+        self.desired_capabilities['tags'] = \
+            [os.environ['TRAVIS_PYTHON_VERSION'], 'CI']
 
         print self.desired_capabilities
 
