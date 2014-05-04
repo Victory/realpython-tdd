@@ -39,6 +39,9 @@ class SaucheTest(LiveServerTestCase):
     def setUp(self):
         self.desired_capabilities['name'] = self.id()
 
+        job_number = os.environ.get('TRAVIS_JOB_NUMBER')
+        self.desired_capabilities['tunnel-identifier'] = job_number
+
         sauce_url = "http://%s:%s@ondemand.saucelabs.com:80/wd/hub"
         self.driver = webdriver.Remote(
             desired_capabilities=self.desired_capabilities,
