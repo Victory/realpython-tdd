@@ -37,14 +37,16 @@ def on_platforms(platforms):
 class SaucheTest(LiveServerTestCase):
 
     def setUp(self):
-        self.desired_capabilities['name'] = self.id()
+        self.caps['name'] = self.id()
+        self.caps['tunnel-identifier'] = os.environ['TRAVIS_JOB_NUMBER']
+        self.caps['build'] = os.environ['TRAVIS_BUILD_NUMBER']
+        self.caps['tags'] = [os.environ['TRAVIS_PYTHON_VERSION'], 'CI']
 
-        job_number = os.environ.get('TRAVIS_JOB_NUMBER')
-        self.desired_capabilities['tunnel-identifier'] = job_number
+        print self.caps
 
         sauce_url = "http://%s:%s@ondemand.saucelabs.com:80/wd/hub"
         self.driver = webdriver.Remote(
-            desired_capabilities=self.desired_capabilities,
+            desired_capabilities=self.caps,
             command_executor=sauce_url % (USERNAME, ACCESS_KEY)
         )
         self.driver.implicitly_wait(30)
