@@ -37,6 +37,7 @@ def on_platforms(platforms):
 class SaucheTest(LiveServerTestCase):
 
     def setUp(self):
+        self.caps = {}
         self.caps['name'] = self.id()
         self.caps['tunnel-identifier'] = os.environ['TRAVIS_JOB_NUMBER']
         self.caps['build'] = os.environ['TRAVIS_BUILD_NUMBER']
