@@ -38,23 +38,24 @@ class SaucheTest(LiveServerTestCase):
 
     def setUp(self):
         self.caps = {}
-        self.caps['name'] = self.id()
-        self.caps['tunnel-identifier'] = os.environ['TRAVIS_JOB_NUMBER']
-        self.caps['build'] = os.environ['TRAVIS_BUILD_NUMBER']
-        self.caps['tags'] = [os.environ['TRAVIS_PYTHON_VERSION'], 'CI']
+        self.desired_capabilities['name'] = self.id()
+        self.desired_capabilities['tunnel-identifier'] = \
+            os.environ['TRAVIS_JOB_NUMBER']
+        self.desired_capabilities = os.environ['TRAVIS_BUILD_NUMBER']
+        self.desired_capabilities = [os.environ['TRAVIS_PYTHON_VERSION'], 'CI']
 
-        print self.caps
+        print self.desired_capabilities
 
         sauce_url = "http://%s:%s@ondemand.saucelabs.com:80/wd/hub"
         self.driver = webdriver.Remote(
-            desired_capabilities=self.caps,
+            desired_capabilities=self.desired_capabilities,
             command_executor=sauce_url % (USERNAME, ACCESS_KEY)
         )
         self.driver.implicitly_wait(30)
 
     def tearDown(self):
-        print("Link to your job: "
-              "https://saucelabs.com/jobs/%s" % self.driver.session_id)
+        print("Link to your job: \n "
+              "https://saucelabs.com/jobs/%s \n" % self.driver.session_id)
         try:
             if sys.exc_info() == (None, None, None):
                 sauce.jobs.update_job(self.driver.session_id, passed=True)
@@ -65,4 +66,4 @@ class SaucheTest(LiveServerTestCase):
 
     def test_sauce(self):
         self.driver.get('http://localhost:8000/')
-        assert "I am a page title - Sauce Labs" in self.driver.title
+        assert "Welcome." in self.driver.title
