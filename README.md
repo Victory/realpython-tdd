@@ -4,4 +4,7 @@ Realpython TDD
 
 [![Coverage Status](https://coveralls.io/repos/Victory/realpython-tdd/badge.png?branch=master)](https://coveralls.io/r/Victory/realpython-tdd?branch=master)
 
-Building of the work on realpython.com for Test Driven Design
+[![Selenium Test Status](https://saucelabs.com/browser-matrix/Victory.svg)](https://saucelabs.com/u/Victory)
+
+
+Building off the work on realpython.com for Test Driven Design
