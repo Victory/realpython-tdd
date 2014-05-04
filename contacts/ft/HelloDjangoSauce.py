@@ -58,5 +58,5 @@ class SaucheTest(LiveServerTestCase):
             self.driver.quit()
 
     def test_sauce(self):
-        self.driver.get('/')
+        self.driver.get('http://localhost:8000/')
         assert "I am a page title - Sauce Labs" in self.driver.title
