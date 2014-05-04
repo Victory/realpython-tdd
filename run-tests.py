@@ -29,11 +29,11 @@ if __name__ == '__main__':
 
     errs = 0
 
-    saucetest = ['contacts/ft/HelloSauce.py',
-                 'contacts/ft/HelloDjangoSauce.py']
+    saucetest = ['ft.HelloSauce.py',
+                 'ft.HelloDjangoSauce.py']
     for test in saucetest:
         print "running '%s'" % test
-        err = call(["py.test", test])
+        err = call(["python", "contacts/manage.py", "test", test])
         if err:
             print "Failed\n"
         else:
