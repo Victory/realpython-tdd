@@ -66,5 +66,5 @@ class SaucheTest(LiveServerTestCase):
             self.driver.quit()
 
     def test_sauce(self):
-        self.browser.get(self.live_server_url + "/")
+        self.driver.get(self.live_server_url + "/")
         assert "Welcome." in self.driver.title
